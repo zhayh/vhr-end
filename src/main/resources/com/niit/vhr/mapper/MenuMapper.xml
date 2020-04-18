@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niit.vhr.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.niit.vhr.model.Menu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="component" jdbcType="VARCHAR" property="component" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="iconCls" jdbcType="VARCHAR" property="iconCls" />
+    <result column="parentId" jdbcType="INTEGER" property="parentId" />
+    <result column="enabled" jdbcType="BOOLEAN" property="enabled" />
+    <association property="meta" javaType="com.niit.vhr.model.Meta" >
+      <result column="keepAlive" jdbcType="BIT" property="keepAlive" />
+      <result column="requireAuth" jdbcType="BIT" property="requireAuth" />
+    </association>
+  </resultMap>
+  <resultMap id="AllMenuMap" type="com.niit.vhr.model.Menu" extends="BaseResultMap">
+    <collection property="children" ofType="com.niit.vhr.model.Menu">
+      <id column="id2" jdbcType="INTEGER" property="id" />
+      <result column="url2" jdbcType="VARCHAR" property="url" />
+      <result column="path2" jdbcType="VARCHAR" property="path" />
+      <result column="component2" jdbcType="VARCHAR" property="component" />
+      <result column="name2" jdbcType="VARCHAR" property="name" />
+      <result column="iconCls2" jdbcType="VARCHAR" property="iconCls" />
+      <result column="parentId2" jdbcType="INTEGER" property="parentId" />
+      <result column="enabled2" jdbcType="BOOLEAN" property="enabled" />
+      <association property="meta" javaType="com.niit.vhr.model.Meta" >
+        <result column="keepAlive2" jdbcType="BIT" property="keepAlive" />
+        <result column="requireAuth2" jdbcType="BIT" property="requireAuth" />
+      </association>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, url, `path`, component, `name`, iconCls, keepAlive, requireAuth, parentId, enabled
+  </sql>
+  <select id="getMenusByHrId" resultMap="AllMenuMap">
+    select distinct m1.*, m2.id as id2, m2.component as component2, m2.enabled as enabled2,
+    m2.iconCls as iconCls2, m2.keepAlive as keepAlive2, m2.name as name2, m2.parentId as parentid2,
+    m2.requireAuth as requireAuth2, m2.path as path2
+    from menu m1, menu m2, hr_role hrr, menu_role mr
+    where m1.id=m2.parentId and hrr.hrid=#{hrid} and hrr.rid=mr.rid and mr.mid=m2.id and m2.enabled=true
+    order by m1.id, m2.id
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.niit.vhr.model.Menu" useGeneratedKeys="true">
+    insert into menu (url, `path`, component, 
+      `name`, iconCls, keepAlive, 
+      requireAuth, parentId, enabled
+      )
+    values (#{url,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{iconcls,jdbcType=VARCHAR}, #{keepalive,jdbcType=BOOLEAN}, 
+      #{requireauth,jdbcType=BOOLEAN}, #{parentid,jdbcType=INTEGER}, #{enabled,jdbcType=BOOLEAN}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.niit.vhr.model.Menu" useGeneratedKeys="true">
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="url != null">
+        url,
+      </if>
+      <if test="path != null">
+        `path`,
+      </if>
+      <if test="component != null">
+        component,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="iconcls != null">
+        iconCls,
+      </if>
+      <if test="keepalive != null">
+        keepAlive,
+      </if>
+      <if test="requireauth != null">
+        requireAuth,
+      </if>
+      <if test="parentid != null">
+        parentId,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null">
+        #{iconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="keepalive != null">
+        #{keepalive,jdbcType=BOOLEAN},
+      </if>
+      <if test="requireauth != null">
+        #{requireauth,jdbcType=BOOLEAN},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.niit.vhr.model.Menu">
+    update menu
+    <set>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="iconcls != null">
+        iconCls = #{iconcls,jdbcType=VARCHAR},
+      </if>
+      <if test="keepalive != null">
+        keepAlive = #{keepalive,jdbcType=BOOLEAN},
+      </if>
+      <if test="requireauth != null">
+        requireAuth = #{requireauth,jdbcType=BOOLEAN},
+      </if>
+      <if test="parentid != null">
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.niit.vhr.model.Menu">
+    update menu
+    set url = #{url,jdbcType=VARCHAR},
+      `path` = #{path,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      iconCls = #{iconcls,jdbcType=VARCHAR},
+      keepAlive = #{keepalive,jdbcType=BOOLEAN},
+      requireAuth = #{requireauth,jdbcType=BOOLEAN},
+      parentId = #{parentid,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=BOOLEAN}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
