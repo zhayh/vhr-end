@@ -16,7 +16,7 @@ public class Role implements Serializable {
     /**
      * 角色名称
      */
-    private String namezh;
+    private String nameZh;
 
     private static final long serialVersionUID = 1L;
 }

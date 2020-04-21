@@ -13,5 +13,5 @@ public class Meta {
 
     private Boolean requireAuth;
 
-
+    private static final long serialVersionUID = 1L;
 }
