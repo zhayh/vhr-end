@@ -25,10 +25,7 @@
       <result column="iconCls2" jdbcType="VARCHAR" property="iconCls" />
       <result column="parentId2" jdbcType="INTEGER" property="parentId" />
       <result column="enabled2" jdbcType="BOOLEAN" property="enabled" />
-      <association property="meta" javaType="com.niit.vhr.model.Meta" >
-        <result column="keepAlive" jdbcType="BIT" property="keepAlive" />
-        <result column="requireAuth" jdbcType="BIT" property="requireAuth" />
-      </association>
+      <association property="meta" javaType="com.niit.vhr.model.Meta" />
     </collection>
   </resultMap>
   <resultMap id="MenuWithRoleMap" type="com.niit.vhr.model.Menu" extends="BaseResultMap">
