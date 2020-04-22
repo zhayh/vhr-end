@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.niit.vhr.model.Position" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
     <result column="enabled" property="enabled" jdbcType="BIT" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -23,7 +23,7 @@
   <insert id="insert" parameterType="com.niit.vhr.model.Position" >
     insert into position (id, name, createDate, 
       enabled)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},
       #{enabled,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.niit.vhr.model.Position" >
@@ -35,12 +35,8 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="createdate != null" >
         createDate,
-      </if>
-      <if test="enabled != null" >
         enabled,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -49,12 +45,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="createdate != null" >
-        #{createdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="enabled != null" >
-        #{enabled,jdbcType=BIT},
-      </if>
+        now(),
+        true
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.niit.vhr.model.Position" >
@@ -63,8 +55,8 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="createdate != null" >
-        createDate = #{createdate,jdbcType=TIMESTAMP},
+      <if test="createDate != null" >
+        createDate = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="enabled != null" >
         enabled = #{enabled,jdbcType=BIT},
@@ -75,7 +67,7 @@
   <update id="updateByPrimaryKey" parameterType="com.niit.vhr.model.Position" >
     update position
     set name = #{name,jdbcType=VARCHAR},
-      createDate = #{createdate,jdbcType=TIMESTAMP},
+      createDate = #{createDate,jdbcType=TIMESTAMP},
       enabled = #{enabled,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
