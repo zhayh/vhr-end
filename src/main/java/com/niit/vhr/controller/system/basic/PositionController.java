@@ -40,7 +40,7 @@ public class PositionController {
         if(positionService.updatePosition(position) == 1 ) {
             return RespBean.ok("更新成功");
         }
-        return RespBean.error("添加失败");
+        return RespBean.error("更新失败");
     }
 
     @DeleteMapping("/{id}")
@@ -49,5 +49,13 @@ public class PositionController {
             return RespBean.ok("删除成功");
         }
         return RespBean.error("删除失败");
+    }
+
+    @DeleteMapping("/")
+    public RespBean deletePosition(Integer[] ids) {
+        if(positionService.deletePosition(ids) == ids.length) {
+            return RespBean.ok("批量删除成功");
+        }
+        return RespBean.error("批量删除失败");
     }
 }

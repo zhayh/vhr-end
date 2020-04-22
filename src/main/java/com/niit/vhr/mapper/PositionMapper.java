@@ -1,6 +1,7 @@
 package com.niit.vhr.mapper;
 
 import com.niit.vhr.model.Position;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -20,4 +21,12 @@ public interface PositionMapper {
 
     @Select("select * from position")
     List<Position> selectAllPosition();
+
+//    @Delete({"<script> ",
+//            "delete from position where id in ",
+//            "<foreach collection='array' item='item' open='('  separator=',' close=')'>",
+//            "#{item}",
+//            "</foreach>",
+//            "</script>" })
+    Integer deleteByIds(Integer[] ids);
 }
