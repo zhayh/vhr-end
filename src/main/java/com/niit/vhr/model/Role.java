@@ -2,6 +2,7 @@ package com.niit.vhr.model;
 
 import java.io.Serializable;
 import lombok.Data;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * role

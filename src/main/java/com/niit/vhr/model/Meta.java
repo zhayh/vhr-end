@@ -1,6 +1,7 @@
 package com.niit.vhr.model;
 
 import lombok.Data;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author : zhayh

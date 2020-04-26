@@ -58,7 +58,12 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     // 不拦截 login
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().mvcMatchers("/login");
+        web.ignoring()
+                .antMatchers("/swagger-ui.html")
+                .antMatchers("/v2/*")
+                .antMatchers("/swagger-resources/**")
+                .antMatchers("/webjars/**")
+                .mvcMatchers("/login");
     }
 
     @Override
@@ -120,7 +125,6 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                         out.close();
                     }
                 })
-                .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
