@@ -125,6 +125,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                         out.close();
                     }
                 })
+                .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessHandler(new LogoutSuccessHandler() {

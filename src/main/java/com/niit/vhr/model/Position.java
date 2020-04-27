@@ -16,9 +16,10 @@ public class Position {
     @ApiModelProperty(value = "职位名称")
     private String name;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:hh", timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm", timezone = "Asia/Shanghai")
     @ApiModelProperty(value = "职位创建时间")
     private Date createDate;
 
+    @ApiModelProperty(value = "是否启用")
     private Boolean enabled;
 }

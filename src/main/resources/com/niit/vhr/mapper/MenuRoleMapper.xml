@@ -6,6 +6,12 @@
     <result column="mid" jdbcType="INTEGER" property="mid" />
     <result column="rid" jdbcType="INTEGER" property="rid" />
   </resultMap>
+  <insert id="insertRecord" parameterType="java.lang.Integer">
+    insert into menu_role(mid, rid) values
+    <foreach collection="mids" separator="," item="mid">
+      (#{mid}, #{rid})
+    </foreach>
+  </insert>
   <sql id="Base_Column_List">
     id, mid, rid
   </sql>
