@@ -26,4 +26,15 @@ public class RoleService {
     public List<Menu> getAllMenus() {
         return roleMapper.getAllMenus();
     }
+
+    public Integer addRole(Role role) {
+        if (!role.getName().startsWith("ROLE_")) {
+            role.setName("ROLE_" + role.getName());
+        }
+        return roleMapper.insert(role);
+    }
+
+    public Integer deleteRoleById(Integer rid) {
+        return roleMapper.deleteByPrimaryKey(rid);
+    }
 }

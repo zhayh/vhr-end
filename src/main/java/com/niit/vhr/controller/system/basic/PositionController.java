@@ -26,7 +26,7 @@ public class PositionController {
     @ApiOperation(value = "获取所有职位", notes = "所有职位信息列表", produces = "application/json")
     public RespBean getAllPosition() {
         List<Position> positions = positionService.getAllPosition();
-        return RespBean.ok("获取成功", positions);
+        return RespBean.ok("", positions);
     }
 
     @PostMapping("/")

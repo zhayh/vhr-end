@@ -28,7 +28,7 @@ public class JobLevelController {
     @ApiOperation(value = "获取所有职称", notes = "所有职称信息列表", produces = "application/json")
     public RespBean getAllJobLevel() {
         List<JobLevel> jobLevels = jobLevelService.getAllJobLevel();
-        return RespBean.ok("获取成功", jobLevels);
+        return RespBean.ok("", jobLevels);
     }
 
     @PostMapping("/")

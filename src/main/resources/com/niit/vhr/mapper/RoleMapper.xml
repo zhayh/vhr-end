@@ -40,7 +40,7 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.niit.vhr.model.Role" useGeneratedKeys="true">
     insert into role (`name`, nameZh)
-    values (#{name,jdbcType=VARCHAR}, #{namezh,jdbcType=VARCHAR})
+    values (#{name,jdbcType=VARCHAR}, #{nameZh,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.niit.vhr.model.Role" useGeneratedKeys="true">
     insert into role
@@ -48,7 +48,7 @@
       <if test="name != null">
         `name`,
       </if>
-      <if test="namezh != null">
+      <if test="nameZh != null">
         nameZh,
       </if>
     </trim>
@@ -56,8 +56,8 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="namezh != null">
-        #{namezh,jdbcType=VARCHAR},
+      <if test="nameZh != null">
+        #{nameZh,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -67,8 +67,8 @@
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="namezh != null">
-        nameZh = #{namezh,jdbcType=VARCHAR},
+      <if test="nameZh != null">
+        nameZh = #{nameZh,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -76,7 +76,7 @@
   <update id="updateByPrimaryKey" parameterType="com.niit.vhr.model.Role">
     update role
     set `name` = #{name,jdbcType=VARCHAR},
-      nameZh = #{namezh,jdbcType=VARCHAR}
+      nameZh = #{nameZh,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
