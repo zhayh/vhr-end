@@ -6,6 +6,12 @@
     <result column="hrid" jdbcType="INTEGER" property="hrid" />
     <result column="rid" jdbcType="INTEGER" property="rid" />
   </resultMap>
+  <insert id="addRole" parameterType="java.lang.Integer">
+    insert into hr_role(hrid, rid) values
+    <foreach collection="rids" separator="," item="rid">
+      (#{hrid}, #{rid})
+    </foreach>
+  </insert>
   <sql id="Base_Column_List">
     id, hrid, rid
   </sql>

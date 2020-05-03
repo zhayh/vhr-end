@@ -19,7 +19,7 @@ public interface RoleMapper {
 
     int updateByPrimaryKey(Role record);
 
-    @Select("select * from role")
+    @Select("select * from role order by id")
     List<Role> getAllRoles();
 
     List<Menu> getAllMenus();

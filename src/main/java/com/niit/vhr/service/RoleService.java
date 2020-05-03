@@ -1,9 +1,12 @@
 package com.niit.vhr.service;
 
+import com.niit.vhr.mapper.HrRoleMapper;
 import com.niit.vhr.mapper.RoleMapper;
 import com.niit.vhr.model.Menu;
 import com.niit.vhr.model.Role;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,6 +21,8 @@ import java.util.List;
 public class RoleService {
     @Resource
     RoleMapper roleMapper;
+    @Resource
+    HrRoleMapper hrRoleMapper;
 
     public List<Role> getAllRoles() {
         return roleMapper.getAllRoles();
@@ -36,5 +41,11 @@ public class RoleService {
 
     public Integer deleteRoleById(Integer rid) {
         return roleMapper.deleteByPrimaryKey(rid);
+    }
+
+    @Transactional
+    public boolean updateRoles(Integer hrid, Integer[] rids) {
+        hrRoleMapper.deleteByHrid(hrid);
+        return hrRoleMapper.addRole(hrid, rids) == rids.length;
     }
 }

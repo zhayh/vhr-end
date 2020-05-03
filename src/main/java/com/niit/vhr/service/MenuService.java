@@ -4,6 +4,7 @@ import com.niit.vhr.mapper.MenuMapper;
 import com.niit.vhr.mapper.MenuRoleMapper;
 import com.niit.vhr.model.Hr;
 import com.niit.vhr.model.Menu;
+import com.niit.vhr.utils.HrUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class MenuService {
     MenuRoleMapper menuRoleMapper;
 
     public List<Menu> getMenusByHrId() {
-        return menuMapper.getMenusByHrId(((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+        return menuMapper.getMenusByHrId(HrUtils.getCurrentHr().getId());
     }
 
 //    @Cacheable

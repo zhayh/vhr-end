@@ -13,9 +13,25 @@
     <result column="userface" jdbcType="VARCHAR" property="userface" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+  <resultMap id="HrWithRoles" type="com.niit.vhr.model.Hr" extends="BaseResultMap">
+    <collection property="roles" ofType="com.niit.vhr.model.Role">
+      <id column="rid" property="id" />
+      <result column="rname" property="name" />
+      <result column="rnameZh" property="nameZh" />
+    </collection>
+  </resultMap>
   <sql id="Base_Column_List">
     id, `name`, phone, telephone, address, enabled, username, `password`, userface, remark
   </sql>
+  <select id="getAllHrs" resultMap="HrWithRoles">
+    select hr.id, hr.`name`, hr.phone, hr.telephone, hr.address, hr.enabled, hr.username,
+    hr.userface, hr.remark, r.id as rid, r.`name` as rname, r.nameZh as rnameZh
+    from hr
+    left join hr_role hrr on hr.id = hrr.hrid
+    left join role r on hrr.rid=r.id
+    where hr.id != #{hrId}
+    order by hr.id
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

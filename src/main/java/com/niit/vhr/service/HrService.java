@@ -2,6 +2,7 @@ package com.niit.vhr.service;
 
 import com.niit.vhr.mapper.HrMapper;
 import com.niit.vhr.model.Hr;
+import com.niit.vhr.utils.HrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author : zhayh
@@ -29,5 +31,17 @@ public class HrService implements UserDetailsService {
         }
         hr.setRoles(hrMapper.getHrRolesById(hr.getId()));
         return hr;
+    }
+
+    public List<Hr> getAllHrs() {
+        return hrMapper.getAllHrs(HrUtils.getCurrentHr().getId());
+    }
+
+    public int updateHr(Hr hr) {
+        return hrMapper.updateByPrimaryKeySelective(hr);
+    }
+
+    public int updateHrStatus(Hr hr) {
+        return hrMapper.updateStatus(hr.getId(), hr.isEnabled());
     }
 }
