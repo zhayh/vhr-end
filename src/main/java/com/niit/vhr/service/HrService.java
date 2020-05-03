@@ -33,8 +33,8 @@ public class HrService implements UserDetailsService {
         return hr;
     }
 
-    public List<Hr> getAllHrs() {
-        return hrMapper.getAllHrs(HrUtils.getCurrentHr().getId());
+    public List<Hr> getAllHrs(String keywords) {
+        return hrMapper.getAllHrs(HrUtils.getCurrentHr().getId(), keywords);
     }
 
     public int updateHr(Hr hr) {
@@ -43,5 +43,9 @@ public class HrService implements UserDetailsService {
 
     public int updateHrStatus(Hr hr) {
         return hrMapper.updateStatus(hr.getId(), hr.isEnabled());
+    }
+
+    public int deleteHrById(Integer id) {
+        return hrMapper.deleteByPrimaryKey(id);
     }
 }
