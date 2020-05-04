@@ -54,7 +54,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     public void checkCode(HttpServletResponse resp, String code, String verifyCode) {
-        if (code == null || verifyCode == null || StringUtils.isEmpty(code)) {
+        if (StringUtils.isEmpty(code)) {
             throw new AuthenticationServiceException("验证码不能为空！");
         } else if (!code.equalsIgnoreCase(verifyCode)) {
             throw new AuthenticationServiceException("验证码错误！");

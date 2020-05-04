@@ -23,6 +23,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -107,6 +108,8 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                     respBean.setMsg("账户被禁用，请联系管理员");
                 } else if (exception instanceof BadCredentialsException) {
                     respBean.setMsg("用户名或密码输入错误，请重新登录");
+                } else if (exception != null && !StringUtils.isEmpty(exception.getMessage())) {
+                    respBean.setMsg(exception.getMessage());
                 }
                 out.write(new ObjectMapper().writeValueAsString(respBean));
                 out.flush();
