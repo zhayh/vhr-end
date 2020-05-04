@@ -4,9 +4,16 @@ import com.github.pagehelper.PageInfo;
 import com.niit.vhr.model.Position;
 import com.niit.vhr.model.RespBean;
 import com.niit.vhr.service.system.basic.PositionService;
+import com.niit.vhr.utils.PoiUtils;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author : zhayh
@@ -75,5 +82,24 @@ public class PositionController {
             return RespBean.ok("批量删除成功");
         }
         return RespBean.error("批量删除失败");
+    }
+
+    @GetMapping("/export")
+    @ApiOperation(value = "导出数据", notes = "将所有职位导出到excel")
+    public ResponseEntity<byte[]> exportData() {
+//        List<Position> positions = positionService.getPositionByPage(null, null).getList();
+        List<Position> positions = positionService.getAllPosition();
+        return PoiUtils.exportData(positions);
+    }
+
+    @PostMapping("/import")
+    @ApiOperation(value = "导入数据", notes = "导入excel数据")
+    public RespBean importData(MultipartFile file) throws IOException {
+//        file.transferTo(new File("e:\\position.xlsx"));
+        List<Position> positions = PoiUtils.importData(file);
+        if(positionService.addPositions(positions) == positions.size()) {
+            return RespBean.ok("导入成功");
+        }
+        return RespBean.ok("导入失败");
     }
 }

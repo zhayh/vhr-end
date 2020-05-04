@@ -29,4 +29,6 @@ public interface PositionMapper {
 //            "</foreach>",
 //            "</script>" })
     Integer deleteByIds(Integer[] ids);
+
+    Integer batchInsert(List<Position> positions);
 }
