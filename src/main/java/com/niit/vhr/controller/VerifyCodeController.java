@@ -29,13 +29,21 @@ public class VerifyCodeController {
     @ApiOperation(value = "生成验证码")
     public void verify(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        response.setDateHeader("Expires", 0);
+        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+        response.setHeader("Pragma", "no-cache");
+        response.setContentType("image/jpeg");
+
+        // 生成验证码，并保存到 session中
         String code = defaultKaptcha.createText();
         request.getSession().setAttribute("verify_code", code);
 
-        ServletOutputStream out = response.getOutputStream();
-        BufferedImage image = defaultKaptcha.createImage(code);
-        ImageIO.write(image, "JPEG", out);
-        out.flush();
-        out.close();
+        // 生成图片，并返回给前端
+        try(ServletOutputStream out = response.getOutputStream()) {
+            BufferedImage image = defaultKaptcha.createImage(code);
+            ImageIO.write(image, "JPEG", out);
+            out.flush();
+        }
     }
 }

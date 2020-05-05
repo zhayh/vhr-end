@@ -35,7 +35,7 @@ public class KaptchaConfig {
         // 噪声颜色、实现
         properties.put(Constants.KAPTCHA_NOISE_COLOR, "35,37,38");
         properties.put(Constants.KAPTCHA_NOISE_IMPL, "com.google.code.kaptcha.impl.DefaultNoise");
-        // 背景言责
+        // 背景颜色
 //        properties.put(Constants.KAPTCHA_BACKGROUND_CLR_FROM, "185,56,213");
 //        properties.put(Constants.KAPTCHA_BACKGROUND_CLR_TO, "white");
 
