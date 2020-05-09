@@ -60,10 +60,10 @@ public class PoiUtils {
         c2.setCellValue("创建时间");
         c3.setCellValue("是否启用");
 
-        // 4. 写入 postions数据
-        for (int i = 0; i < positions.size(); i++) {
+        // 4. 写入 postions 数据
+        for (int i = 1; i < positions.size(); i++) {
             Position position = positions.get(i);
-            Row row = sheet.createRow(i + 1);
+            Row row = sheet.createRow(i);
             row.createCell(0).setCellValue(position.getId());
             row.createCell(1).setCellValue(position.getName());
 
@@ -92,7 +92,7 @@ public class PoiUtils {
         Position position = null;
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
-            // 2. 获取 workbook的 sheet数量
+            // 2. 获取 workbook 的 sheet 数量
             int numberOfSheets = workbook.getNumberOfSheets();
             for (int i = 0; i < numberOfSheets; i++) {
                 // 3. 获取 sheet
@@ -124,10 +124,8 @@ public class PoiUtils {
                             }
                         }
                         positions.add(position);
-
                     }
                 }
-
             }
         } catch (IOException e) {
             e.printStackTrace();
