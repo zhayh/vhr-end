@@ -3,10 +3,6 @@ package com.niit.vhr.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import net.bytebuddy.asm.Advice;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -28,9 +24,6 @@ public class JwtUtils {
 
     // 选择了记住我之后的过期时间为7天
     private static final long EXPIRATION_REMEMBER = 7 * 24 * 60 * 60L;
-
-    @Autowired
-    private StringRedisTemplate redisTemplate;
 
     // 创建token
     public static String createToken(String username, String authority, boolean isRememberMe) {
